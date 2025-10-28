@@ -46,11 +46,11 @@ Le TP démontre la maîtrise des concepts suivants :
   * **Résolution des problèmes d'authentification** MariaDB en créant un utilisateur dédié (`app_user`) pour les connexions distantes (depuis le conteneur PHP).
   * Validation des requêtes **CRUD** (écriture/lecture) via la page `test.php` avec incrémentation du compteur.
 
-  **Liens à consulter :**
+**Liens à consulter :**
 
-    * Vérification NGINX/PHP : http://localhost:8080/index.php
+* Vérification NGINX/PHP : http://localhost:8080/index.php
 
-    * Validation CRUD/MariaDB : http://localhost:8080/test.php (Le compteur doit s'incrémenter à chaque rafraîchissement.)
+* Validation CRUD/MariaDB : http://localhost:8080/test.php (Le compteur doit s'incrémenter à chaque rafraîchissement.)
 
 ### Étape 3 : Orchestration via Docker Compose 
 
@@ -68,3 +68,4 @@ Validation CRUD/MariaDB (Identique à l'Étape 2): http://localhost:8080/index.p
 
   * **Environnement d'exécution :** Les scripts et commandes Docker ont été testés et optimisés pour un environnement **Windows** utilisant **Git Bash (MINGW64)**, notamment en corrigeant les problèmes de *bind mount* grâce à la syntaxe **`-v "$(pwd -W)/..."`** pour garantir la portabilité des chemins hôtes.
   * **PHP Version :** L'environnement utilise l'image **`php:8.2-fpm`** (ou l'équivalent utilisé lors des tests initiaux).
+
