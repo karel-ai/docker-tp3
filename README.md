@@ -36,6 +36,8 @@ Le TP démontre la maîtrise des concepts suivants :
   * Configuration d'un **réseau commun** (`my-php-net`) pour la communication inter-conteneurs.
   * Validation de la communication PHP-FPM via l'affichage de `phpinfo()`.
 
+  **Lien à consulter :** http://localhost:8080/
+
 ### Étape 2 : Ajout de la Base de Données (CRUD)
 
   * **Ajout du conteneur `DATA` (MariaDB)**.
@@ -44,10 +46,21 @@ Le TP démontre la maîtrise des concepts suivants :
   * **Résolution des problèmes d'authentification** MariaDB en créant un utilisateur dédié (`app_user`) pour les connexions distantes (depuis le conteneur PHP).
   * Validation des requêtes **CRUD** (écriture/lecture) via la page `test.php` avec incrémentation du compteur.
 
+  **Liens à consulter :**
+
+    * Vérification NGINX/PHP : http://localhost:8080/index.php
+
+    * Validation CRUD/MariaDB : http://localhost:8080/test.php (Le compteur doit s'incrémenter à chaque rafraîchissement.)
+
 ### Étape 3 : Orchestration via Docker Compose 
 
   * **Conversion de l'intégralité de la configuration de l'Étape 2** en un seul fichier `docker-compose.yml`.
   * Utilisation de la commande `docker compose up -d` pour orchestrer les trois services et leurs dépendances (`depends_on`).
+
+  **Liens à consulter :**
+
+Validation CRUD/MariaDB (Identique à l'Étape 2): http://localhost:8080/index.php
+                                                 http://localhost:8080/test.php
 
 -----
 
