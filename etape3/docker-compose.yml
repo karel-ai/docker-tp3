@@ -1,0 +1,59 @@
+version: '3.8'
+
+# Définition du réseau commun
+networks:
+  my-php-net:
+    driver: bridge
+
+services:
+  # 1. Service DATA (MariaDB)
+  data:
+    image: mariadb:latest
+    container_name: data
+    restart: unless-stopped
+    volumes:
+      # Montage du fichier SQL pour l'initialisation automatique (création de la DB et de l'utilisateur)
+      - ./src/create.sql:/docker-entrypoint-initdb.d/create.sql
+    environment:
+      # L'utilisateur 'root' sera créé, mais nous utilisons 'app_user' dans PHP
+      - MARIADB_RANDOM_ROOT_PASSWORD=yes 
+      - MARIADB_DATABASE=my_app_db
+    networks:
+      - my-php-net
+
+  # 2. Service SCRIPT (PHP-FPM)
+  script:
+    # Utilisation du bloc 'build' pour construire l'image avec mysqli
+    build:
+      context: ./php # Indique l'emplacement du Dockerfile
+      dockerfile: Dockerfile
+    image: tp3-php-mysqli # Donne un nom à l'image construite (optionnel mais clair)
+    container_name: script
+    restart: unless-stopped
+    volumes:
+      # Montage des sources PHP
+      - ./src:/app
+    networks:
+      - my-php-net
+    # Assure que MariaDB a le temps de démarrer
+    depends_on:
+      - data 
+
+  # 3. Service HTTP (NGINX)
+  http:
+    image: nginx:latest
+    container_name: http
+    restart: unless-stopped
+    # Mapping du port hôte vers le port conteneur (8080 comme requis)
+    ports:
+      - "8080:8080"
+    volumes:
+      # Montage des sources PHP dans le webroot NGINX
+      - ./src:/app
+      # Montage de la configuration NGINX
+      - ./config/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - my-php-net
+    # Assure que PHP-FPM est lancé pour que NGINX puisse s'y connecter
+    depends_on:
+      - script
