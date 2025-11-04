@@ -1,25 +1,20 @@
 <?php
-$host = 'data';        
-$user = 'app_user';    // NOUVEAU USER
-$password = 'app_password'; // NOUVEAU MOT DE PASSE
-$db = 'my_app_db';     
+    $mysqli = new mysqli('data', 'monuser', 'password');
+    if (mysqli_connect_errno()) {
+        printf("Connect failed: %s\n", mysqli_connect_error());
+        exit();
+    }
 
-$conn = new mysqli($host, $user, $password, $db);
+	if ($mysqli->query("INSERT INTO mabase.matable (compteur) SELECT count(*)+1 FROM mabase.matable;") === TRUE) {
+	    printf("Count updated\n<br />", $result->num_rows);
+	}
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+	if ($result = $mysqli->query("SELECT * FROM mabase.matable")) {
+	    printf("Count : %d\n<br />", $result->num_rows);
 
-$update_sql = "UPDATE counters SET count = count + 1 WHERE id = 1";
-$conn->query($update_sql);
-echo "Count updated<br>";
+	    /* Libération du jeu de résultats */
+	    $result->close();
+	}
 
-$read_sql = "SELECT count FROM counters WHERE id = 1";
-$result = $conn->query($read_sql);
-$row = $result->fetch_assoc();
-$current_count = $row['count'];
-
-echo "Count : " . $current_count;
-
-$conn->close();
+    $mysqli->close();
 ?>
