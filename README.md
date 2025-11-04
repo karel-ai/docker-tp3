@@ -55,7 +55,7 @@ Le TP démontre la maîtrise des concepts suivants :
 ### Étape 3 : Orchestration via Docker Compose 
 
   * **Conversion de l'intégralité de la configuration de l'Étape 2** en un seul fichier `docker-compose.yml`.
-  * Utilisation de la commande `docker compose up -d` pour orchestrer les trois services et leurs dépendances (`depends_on`).
+  * Utilisation de la commande `docker compose up -d --build` pour orchestrer les trois services et leurs dépendances (`depends_on`).
 
   **Liens à consulter :**
 
@@ -68,5 +68,6 @@ Validation CRUD/MariaDB (Identique à l'Étape 2): http://localhost:8080
 
   * **Environnement d'exécution :** Les scripts et commandes Docker ont été testés et optimisés pour un environnement **Windows** utilisant **Git Bash (MINGW64)**, notamment en corrigeant les problèmes de *bind mount* grâce à la syntaxe **`-v "$(pwd -W)/..."`** pour garantir la portabilité des chemins hôtes.
   * **PHP Version :** L'environnement utilise l'image **`php:8.2-fpm`** (ou l'équivalent utilisé lors des tests initiaux).
+
 
 
